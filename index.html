@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SKYGATE — Real-Time Flight Tracker for iPhone & iPad</title>
+<meta name="description" content="SKYGATE is a premium iOS flight tracker with live maps, Live Activities, Dynamic Island, Lock Screen widgets, AI Rescue compensation help, and on-device delay prediction. Privacy-first. Free to track 3 flights." />
+<meta name="theme-color" content="#0D1B2A" />
+<meta property="og:title" content="SKYGATE — Real-Time Flight Tracker" />
+<meta property="og:description" content="Track flights in real time. Live map, Dynamic Island, AI Rescue, delay prediction. Privacy-first, built for iPhone & iPad." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --midnight:#0D1B2A;
+    --midnight-2:#0a1622;
+    --panel:#111f31;
+    --panel-2:#16263b;
+    --sky:#00D4FF;
+    --amber:#FFB300;
+    --white:#ffffff;
+    --muted:#9fb3c8;
+    --muted-2:#6f8298;
+    --line:rgba(255,255,255,.08);
+    --radius:18px;
+    --maxw:1140px;
+    --shadow:0 24px 60px -20px rgba(0,0,0,.55);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    background:var(--midnight);
+    color:var(--white);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  .accent{color:var(--sky)}
+  .amber{color:var(--amber)}
+
+  /* aurora background */
+  .aurora{position:fixed;inset:0;z-index:-2;overflow:hidden;background:
+    radial-gradient(1200px 700px at 75% -10%, rgba(0,212,255,.14), transparent 60%),
+    radial-gradient(900px 600px at 10% 5%, rgba(255,179,0,.10), transparent 55%),
+    linear-gradient(180deg,#0D1B2A 0%, #0a1420 100%);}
+  .aurora::after{content:"";position:absolute;inset:0;background:
+    radial-gradient(700px 500px at 90% 90%, rgba(0,212,255,.07), transparent 60%);}
+  .grid-lines{position:fixed;inset:0;z-index:-1;
+    background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+    background-size:64px 64px;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);}
+
+  /* header */
+  header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(150%) blur(14px);
+    background:rgba(13,27,42,.72);border-bottom:1px solid var(--line);}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:.04em;font-size:18px}
+  .logo{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--sky),#0096c7);box-shadow:0 6px 20px -6px rgba(0,212,255,.7)}
+  .logo svg{width:20px;height:20px;display:block}
+  .nav-links{display:flex;align-items:center;gap:30px}
+  .nav-links a{color:var(--muted);font-weight:500;font-size:15px;transition:color .2s}
+  .nav-links a:hover{color:var(--white)}
+  .btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;font-weight:700;
+    padding:11px 22px;font-size:15px;transition:transform .15s ease, box-shadow .2s ease;cursor:pointer}
+  .btn-primary{background:linear-gradient(135deg,var(--sky),#1fa8d8);color:#04222e;
+    box-shadow:0 12px 30px -10px rgba(0,212,255,.6)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 40px -10px rgba(0,212,255,.75)}
+  .btn-ghost{border:1px solid var(--line);color:var(--white);background:rgba(255,255,255,.02)}
+  .btn-ghost:hover{border-color:var(--sky);transform:translateY(-2px)}
+  .nav .btn{padding:9px 18px}
+  .menu-toggle{display:none}
+
+  /* hero */
+  .hero{position:relative;padding:96px 0 80px;text-align:center}
+  .pill{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border-radius:999px;
+    border:1px solid var(--line);background:rgba(0,212,255,.06);color:var(--sky);
+    font-size:13px;font-weight:600;letter-spacing:.03em;margin-bottom:26px}
+  .pill .dot{width:7px;height:7px;border-radius:50%;background:var(--sky);box-shadow:0 0 12px var(--sky)}
+  h1{font-size:clamp(40px,7vw,76px);line-height:1.04;font-weight:900;letter-spacing:-.02em}
+  h1 .grad{background:linear-gradient(120deg,#fff 10%,var(--sky) 55%,var(--amber) 110%);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .lead{max-width:660px;margin:24px auto 0;color:var(--muted);font-size:clamp(17px,2.3vw,20px)}
+  .hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:38px}
+  .micro{margin-top:18px;color:var(--muted-2);font-size:13.5px}
+
+  /* device mock */
+  .device-wrap{display:flex;justify-content:center;margin-top:64px;perspective:1400px}
+  .phone{width:300px;height:610px;border-radius:46px;background:linear-gradient(160deg,#1a2c40,#0b1825);
+    padding:11px;box-shadow:var(--shadow),0 0 0 1.5px rgba(255,255,255,.06);position:relative}
+  .phone::before{content:"";position:absolute;top:18px;left:50%;transform:translateX(-50%);
+    width:118px;height:30px;background:#05101b;border-radius:18px;z-index:3}
+  .screen{width:100%;height:100%;border-radius:36px;overflow:hidden;
+    background:linear-gradient(180deg,#0c1a2a,#08131f);position:relative;
+    display:flex;flex-direction:column;padding:54px 18px 18px}
+  .di{position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:4;
+    background:#000;border-radius:18px;height:30px;display:flex;align-items:center;gap:8px;padding:0 12px;
+    font-size:11px;font-weight:700;color:#fff;white-space:nowrap}
+  .di .plane{width:14px;height:14px;color:var(--sky)}
+  .di .on{color:var(--amber)}
+  .scr-card{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+  .scr-route{display:flex;align-items:center;justify-content:space-between;font-weight:800;font-size:22px}
+  .scr-route .arr{color:var(--sky);font-size:16px}
+  .scr-sub{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;margin-top:4px}
+  .scr-bar{height:5px;border-radius:99px;background:rgba(255,255,255,.08);margin-top:14px;overflow:hidden}
+  .scr-bar i{display:block;height:100%;width:62%;border-radius:99px;background:linear-gradient(90deg,var(--sky),var(--amber))}
+  .scr-tag{display:inline-block;margin-top:12px;font-size:10px;font-weight:700;letter-spacing:.04em;
+    color:#04222e;background:var(--amber);padding:4px 9px;border-radius:7px}
+  .scr-map{flex:1;border-radius:16px;border:1px solid var(--line);position:relative;overflow:hidden;
+    background:radial-gradient(120px 80px at 70% 30%,rgba(0,212,255,.18),transparent),linear-gradient(160deg,#0a1726,#0d2236)}
+  .scr-map .path{position:absolute;left:18%;top:62%;width:64%;height:2px;background:linear-gradient(90deg,transparent,var(--sky),transparent);transform:rotate(-22deg)}
+  .scr-map .pl{position:absolute;left:54%;top:46%;color:var(--sky);width:20px;height:20px;filter:drop-shadow(0 0 8px var(--sky))}
+
+  /* logos / trust strip */
+  .trust{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    background:rgba(255,255,255,.015)}
+  .trust .row{display:flex;flex-wrap:wrap;gap:14px 40px;justify-content:center;align-items:center;
+    padding:26px 0;color:var(--muted-2);font-size:13.5px;font-weight:600;letter-spacing:.02em}
+  .trust .row span{display:inline-flex;align-items:center;gap:9px}
+  .trust .row svg{width:17px;height:17px;color:var(--sky)}
+
+  /* sections */
+  section{padding:88px 0}
+  .eyebrow{color:var(--sky);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:12.5px;text-align:center}
+  h2{font-size:clamp(30px,4.5vw,46px);font-weight:900;letter-spacing:-.02em;text-align:center;margin-top:12px;line-height:1.1}
+  .sec-lead{max-width:600px;margin:16px auto 0;text-align:center;color:var(--muted);font-size:17px}
+
+  .features{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:54px}
+  .card{background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+    border:1px solid var(--line);border-radius:var(--radius);padding:28px;transition:transform .25s, border-color .25s, box-shadow .25s}
+  .card:hover{transform:translateY(-6px);border-color:rgba(0,212,255,.4);box-shadow:0 30px 60px -30px rgba(0,212,255,.35)}
+  .ico{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;margin-bottom:18px;
+    background:linear-gradient(135deg,rgba(0,212,255,.18),rgba(0,212,255,.04));border:1px solid rgba(0,212,255,.25)}
+  .ico svg{width:24px;height:24px;color:var(--sky)}
+  .ico.amber{background:linear-gradient(135deg,rgba(255,179,0,.2),rgba(255,179,0,.05));border-color:rgba(255,179,0,.3)}
+  .ico.amber svg{color:var(--amber)}
+  .card h3{font-size:19px;font-weight:800;margin-bottom:8px}
+  .card p{color:var(--muted);font-size:15px}
+
+  /* why split */
+  .why{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+  .why h2{text-align:left}
+  .why .eyebrow{text-align:left}
+  .why-list{margin-top:30px;display:flex;flex-direction:column;gap:22px}
+  .why-item{display:flex;gap:16px}
+  .why-item .chk{flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;
+    background:rgba(0,212,255,.12);border:1px solid rgba(0,212,255,.3)}
+  .why-item .chk svg{width:16px;height:16px;color:var(--sky)}
+  .why-item h4{font-size:16.5px;font-weight:800;margin-bottom:3px}
+  .why-item p{color:var(--muted);font-size:14.5px}
+  .why-visual{background:linear-gradient(160deg,var(--panel),var(--midnight-2));border:1px solid var(--line);
+    border-radius:24px;padding:30px;box-shadow:var(--shadow)}
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .stat{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:16px;padding:20px}
+  .stat .n{font-size:30px;font-weight:900;background:linear-gradient(120deg,#fff,var(--sky));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .stat .l{color:var(--muted);font-size:13px;margin-top:2px}
+
+  /* AI rescue banner */
+  .rescue{background:linear-gradient(135deg,rgba(255,179,0,.10),rgba(0,212,255,.06));
+    border:1px solid rgba(255,179,0,.25);border-radius:26px;padding:48px;display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center}
+  .rescue h2{text-align:left}
+  .rescue p{color:var(--muted);max-width:560px;margin-top:14px;font-size:16px}
+
+  /* pricing */
+  .pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:54px;align-items:stretch}
+  .price{background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));
+    border:1px solid var(--line);border-radius:22px;padding:32px;display:flex;flex-direction:column}
+  .price.feature{border-color:rgba(0,212,255,.5);box-shadow:0 30px 70px -30px rgba(0,212,255,.4);position:relative}
+  .price .badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+    background:linear-gradient(135deg,var(--sky),#1fa8d8);color:#04222e;font-weight:800;font-size:12px;
+    padding:6px 16px;border-radius:999px;letter-spacing:.03em}
+  .price .tier{font-size:14px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+  .price .amt{font-size:42px;font-weight:900;margin:14px 0 2px}
+  .price .amt small{font-size:16px;font-weight:600;color:var(--muted)}
+  .price .alt{color:var(--muted-2);font-size:13.5px;margin-bottom:20px}
+  .price ul{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:26px;flex:1}
+  .price li{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:14.5px}
+  .price li svg{flex:none;width:18px;height:18px;color:var(--sky);margin-top:2px}
+  .price .btn{justify-content:center}
+  .trial-note{text-align:center;margin-top:26px;color:var(--muted-2);font-size:13.5px}
+
+  /* final cta */
+  .final{text-align:center;background:
+    radial-gradient(700px 360px at 50% 0%,rgba(0,212,255,.16),transparent 70%);
+    border:1px solid var(--line);border-radius:30px;padding:72px 30px;margin:0 0 0}
+  .final h2{margin-bottom:8px}
+
+  /* footer */
+  footer{border-top:1px solid var(--line);background:rgba(8,18,30,.6);padding:54px 0 40px;margin-top:90px}
+  .foot{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
+  .foot .brand{margin-bottom:14px}
+  .foot p{color:var(--muted-2);font-size:14px;max-width:320px}
+  .foot-links{display:flex;gap:56px;flex-wrap:wrap}
+  .foot-col h5{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:14px}
+  .foot-col a{display:block;color:var(--muted-2);font-size:14.5px;margin-bottom:10px;transition:color .2s}
+  .foot-col a:hover{color:var(--sky)}
+  .copy{margin-top:40px;padding-top:24px;border-top:1px solid var(--line);
+    color:var(--muted-2);font-size:13px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+
+  @media(max-width:900px){
+    .features,.pricing{grid-template-columns:1fr}
+    .why,.rescue{grid-template-columns:1fr}
+    .rescue{text-align:center}.rescue h2{text-align:center}.rescue p{margin-left:auto;margin-right:auto}
+    .nav-links{display:none}
+    .nav-links.open{display:flex;position:absolute;top:68px;left:0;right:0;flex-direction:column;gap:0;
+      background:rgba(10,20,32,.98);border-bottom:1px solid var(--line);padding:10px 24px 18px}
+    .nav-links.open a{padding:13px 0;border-bottom:1px solid var(--line);width:100%}
+    .nav-links.open .btn{margin-top:12px;justify-content:center}
+    .menu-toggle{display:grid;place-items:center;width:42px;height:42px;border-radius:11px;
+      border:1px solid var(--line);background:rgba(255,255,255,.03);cursor:pointer}
+    .menu-toggle svg{width:22px;height:22px;color:#fff}
+    .why-visual{order:-1}
+  }
+</style>
+</head>
+<body>
+<div class="aurora"></div>
+<div class="grid-lines"></div>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="index.html">
+      <span class="logo"><svg viewBox="0 0 24 24" fill="none"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2 1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5L21 16Z" fill="#04222e"/></svg></span>
+      SKYGATE
+    </a>
+    <nav class="nav-links" id="navlinks">
+      <a href="#features">Features</a>
+      <a href="#why">Why SKYGATE</a>
+      <a href="#pricing">Pricing</a>
+      <a href="support.html">Support</a>
+      <a class="btn btn-primary" href="#pricing">Get the App</a>
+    </nav>
+    <button class="menu-toggle" id="menu" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="pill"><span class="dot"></span> Built for iPhone &amp; iPad · iOS 17+</span>
+      <h1>Never lose sight of<br><span class="grad">your flight again.</span></h1>
+      <p class="lead">SKYGATE tracks every flight in real time — gates, delays, and live map position — and pushes it straight to your Lock Screen, Dynamic Island, and Live Activities. Privacy-first, beautifully fast.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#pricing">Start Tracking Free
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="#features">See Features</a>
+      </div>
+      <p class="micro">Free to track 3 flights · Premium from $2.99/mo · 3-day free trial</p>
+
+      <div class="device-wrap">
+        <div class="phone">
+          <div class="di">
+            <svg class="plane" viewBox="0 0 24 24" fill="currentColor"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2 1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5L21 16Z"/></svg>
+            LX 318 · <span class="on">On Time</span> · Gate A52
+          </div>
+          <div class="screen">
+            <div class="scr-card">
+              <div class="scr-route">ZRH <span class="arr">→</span> LHR</div>
+              <div class="scr-sub"><span>Zürich</span><span>London Heathrow</span></div>
+              <div class="scr-bar"><i></i></div>
+              <div class="scr-sub"><span>Boarding 14:05</span><span>Arr 15:40</span></div>
+              <span class="scr-tag">GATE A52 · ON TIME</span>
+            </div>
+            <div class="scr-map">
+              <div class="path"></div>
+              <svg class="pl" viewBox="0 0 24 24" fill="currentColor" style="transform:rotate(34deg)"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2 1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5L21 16Z"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <div class="trust">
+    <div class="wrap row">
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 8.6 8 11 4.6-2.4 8-6 8-11V5l-8-3Z" stroke-linejoin="round"/></svg> No account required</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2" stroke-linecap="round"/></svg> Real-time updates</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Privacy-first by design</span>
+      <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg> Live map &amp; widgets</span>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="wrap">
+      <p class="eyebrow">Everything in one place</p>
+      <h2>A flight tracker that<br>actually keeps up.</h2>
+      <p class="sec-lead">From the gate to the runway, SKYGATE surfaces the details that matter — exactly when you need them.</p>
+      <div class="features">
+        <div class="card">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2" stroke-linecap="round"/></svg></div>
+          <h3>Real-Time Status</h3>
+          <p>Live gate, delay and cancellation updates the moment they change — pulled from trusted flight-data sources.</p>
+        </div>
+        <div class="card">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 20l-5.4 1.8L5 16 12 4l7 12 1.4 5.8L15 20l-3-1.5L9 20Z" stroke-linejoin="round"/></svg></div>
+          <h3>Live Map Position</h3>
+          <p>Watch your aircraft move across a beautiful live map, powered by the keyless community ADS-B network.</p>
+        </div>
+        <div class="card">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M9 6h6" stroke-linecap="round"/></svg></div>
+          <h3>Dynamic Island &amp; Live Activities</h3>
+          <p>Your countdown, gate and status live right on the Lock Screen and Dynamic Island — no app open needed.</p>
+        </div>
+        <div class="card">
+          <div class="ico amber"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10H13l0-8Z" stroke-linejoin="round"/></svg></div>
+          <h3>AI Rescue</h3>
+          <p>Disrupted flight? Estimate your EU261 / UK261 / DOT compensation and draft a complaint email in seconds.</p>
+        </div>
+        <div class="card">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l5-5 4 4 8-8" stroke-linecap="round" stroke-linejoin="round"/><path d="M21 8v4h-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>On-Device Delay Prediction</h3>
+          <p>SKYGATE blends schedule history with live weather to flag likely delays — all computed privately on your device.</p>
+        </div>
+        <div class="card">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M3 11h18M8 4v3M16 4v3" stroke-linecap="round"/></svg></div>
+          <h3>SkyGroup Boards</h3>
+          <p>Share a flight board with family, friends or colleagues so everyone follows the same trip in real time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section id="why">
+    <div class="wrap why">
+      <div>
+        <p class="eyebrow">Why SKYGATE</p>
+        <h2>Premium tracking,<br>private by default.</h2>
+        <div class="why-list">
+          <div class="why-item">
+            <span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div><h4>No account, no friction</h4><p>Open the app and start tracking instantly. Nothing to sign up for, ever.</p></div>
+          </div>
+          <div class="why-item">
+            <span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div><h4>No ads, no trackers</h4><p>Zero advertising SDKs and no analytics. We don't profile you or sell your data — full stop.</p></div>
+          </div>
+          <div class="why-item">
+            <span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div><h4>On-device intelligence</h4><p>Boarding-pass scanning and delay prediction run locally with Vision &amp; Core ML. Your photos stay on your phone.</p></div>
+          </div>
+          <div class="why-item">
+            <span class="chk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div><h4>Wallet boarding-pass scan</h4><p>Point your camera at a boarding pass and SKYGATE fills in the flight automatically — no typing.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="why-visual">
+        <div class="stat-grid">
+          <div class="stat"><div class="n">0</div><div class="l">Trackers &amp; ad SDKs</div></div>
+          <div class="stat"><div class="n">100%</div><div class="l">On-device scanning</div></div>
+          <div class="stat"><div class="n">Live</div><div class="l">Map &amp; gate updates</div></div>
+          <div class="stat"><div class="n">EU/UK/US</div><div class="l">Compensation rules</div></div>
+        </div>
+        <p style="color:var(--muted);font-size:14px;margin-top:20px;line-height:1.6">SKYGATE only sends the flight number you choose to track to a flight-data provider. Location stays on your device, used solely to estimate your time to the gate.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI RESCUE BANNER -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="rescue">
+        <div>
+          <p class="eyebrow amber" style="color:var(--amber);text-align:left">When things go wrong</p>
+          <h2 style="font-size:clamp(26px,4vw,38px)">AI Rescue fights for your refund.</h2>
+          <p>Delayed, cancelled or denied boarding? SKYGATE estimates what you may be owed under EU261, UK261 and US DOT rules, then drafts a ready-to-send complaint email. Bring your own AI key for tailored drafting, or use the built-in local template — your choice, your data.</p>
+        </div>
+        <div class="ico amber" style="width:88px;height:88px;border-radius:24px">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:44px;height:44px"><path d="M13 2 4.5 13.5H11l-1 8.5L19.5 10H13l0-8Z" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="wrap">
+      <p class="eyebrow">Simple pricing</p>
+      <h2>Start free. Go Premium<br>when you fly more.</h2>
+      <p class="sec-lead">Track up to 3 flights for free, forever. Unlock unlimited tracking and every premium feature with a Premium subscription.</p>
+      <div class="pricing">
+        <div class="price">
+          <span class="tier">Free</span>
+          <div class="amt">$0</div>
+          <div class="alt">No card required</div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg> Track up to 3 flights</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg> Real-time gate &amp; status</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg> Live map position</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg> Lock Screen widgets</li>
+          </ul>
+          <a class="btn btn-ghost" href="#">Download Free</a>
+        </div>
+        <div class="price feature">
+          <span class="badge">Best value · Save 44%</span>
+          <span class="tier accent">Premium · Annual</span>
+          <div class="amt">$19.99<small> /yr</small></div>
+          <div class="alt">3-day free trial · just $1.67/mo</div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg> <strong>Unlimited</strong> flight tracking</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg> Live Activities &amp; Dynamic Island</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg> AI Rescue compensation help</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg> On-device delay prediction</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg> SkyGroup shared boards</li>
+          </ul>
+          <a class="btn btn-primary" href="#">Start 3-Day Free Trial</a>
+        </div>
+        <div class="price">
+          <span class="tier">Premium · Monthly</span>
+          <div class="amt">$2.99<small> /mo</small></div>
+          <div class="alt">3-day free trial · cancel anytime</div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg> Everything in Premium</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg> Flexible month-to-month</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg> Cancel in one tap via Apple</li>
+          </ul>
+          <a class="btn btn-ghost" href="#">Choose Monthly</a>
+        </div>
+      </div>
+      <p class="trial-note">Subscriptions are billed through your Apple ID and renew automatically unless cancelled at least 24 hours before the period ends. Manage or cancel anytime in <strong>Settings → your name → Subscriptions</strong>.</p>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="final">
+        <p class="eyebrow">Ready for takeoff</p>
+        <h2>Your next flight,<br>perfectly tracked.</h2>
+        <p class="sec-lead">Download SKYGATE and turn travel-day stress into calm, real-time clarity.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#">Get SKYGATE on the App Store</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="brand" href="index.html">
+          <span class="logo"><svg viewBox="0 0 24 24" fill="none"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2 1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5L21 16Z" fill="#04222e"/></svg></span>
+          SKYGATE
+        </a>
+        <p>The privacy-first flight tracker for iPhone &amp; iPad. Real-time status, live maps, and AI Rescue when travel goes sideways.</p>
+      </div>
+      <div class="foot-links">
+        <div class="foot-col">
+          <h5>Product</h5>
+          <a href="#features">Features</a>
+          <a href="#why">Why SKYGATE</a>
+          <a href="#pricing">Pricing</a>
+        </div>
+        <div class="foot-col">
+          <h5>Company</h5>
+          <a href="support.html">Support</a>
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Use</a>
+        </div>
+        <div class="foot-col">
+          <h5>Contact</h5>
+          <a href="mailto:hugomoriceau@gmail.com">hugomoriceau@gmail.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="copy">
+      <span>© 2026 SKYGATE · Hugo Moriceau. All rights reserved.</span>
+      <span>Made for travelers who like to know.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  var m=document.getElementById('menu'),n=document.getElementById('navlinks');
+  m&&m.addEventListener('click',function(){n.classList.toggle('open')});
+  n&&n.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){n.classList.remove('open')})});
+</script>
+</body>
+</html>

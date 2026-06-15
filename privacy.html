@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Privacy Policy — SKYGATE Flight Tracker</title>
+<meta name="description" content="SKYGATE privacy policy: what data the app uses, what it never collects, and how your information is handled. Privacy-first by design." />
+<meta name="theme-color" content="#0D1B2A" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root{--midnight:#0D1B2A;--sky:#00D4FF;--amber:#FFB300;--white:#fff;--muted:#9fb3c8;--muted-2:#6f8298;--line:rgba(255,255,255,.08);--maxw:820px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--midnight);color:var(--white);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:var(--sky);text-decoration:none}a:hover{text-decoration:underline}
+  .aurora{position:fixed;inset:0;z-index:-2;background:radial-gradient(1000px 600px at 80% -10%,rgba(0,212,255,.12),transparent 60%),radial-gradient(800px 500px at 5% 0%,rgba(255,179,0,.08),transparent 55%),linear-gradient(180deg,#0D1B2A,#0a1420)}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(150%) blur(14px);background:rgba(13,27,42,.72);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px;max-width:1140px;margin:0 auto;padding:0 24px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:.04em;font-size:18px;color:#fff}
+  .logo{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,var(--sky),#0096c7);box-shadow:0 6px 20px -6px rgba(0,212,255,.7)}
+  .logo svg{width:20px;height:20px}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{color:var(--muted);font-weight:500;font-size:15px}
+  .nav-links a:hover{color:#fff;text-decoration:none}
+  .doc{padding:64px 0 40px}
+  .badge{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border-radius:999px;border:1px solid var(--line);background:rgba(0,212,255,.06);color:var(--sky);font-size:13px;font-weight:600;margin-bottom:22px}
+  h1{font-size:clamp(34px,6vw,52px);font-weight:900;letter-spacing:-.02em;line-height:1.08}
+  .updated{color:var(--muted-2);margin-top:14px;font-size:14.5px}
+  .intro{color:var(--muted);font-size:17px;margin-top:24px;border-left:3px solid var(--sky);padding-left:18px}
+  .doc h2{font-size:24px;font-weight:800;margin:46px 0 14px;letter-spacing:-.01em}
+  .doc h3{font-size:18px;font-weight:700;margin:28px 0 8px;color:#dce8f4}
+  .doc p{color:var(--muted);margin-bottom:14px;font-size:16px}
+  .doc ul{list-style:none;margin:0 0 16px;padding:0}
+  .doc li{color:var(--muted);position:relative;padding-left:26px;margin-bottom:11px;font-size:16px}
+  .doc li::before{content:"";position:absolute;left:4px;top:11px;width:7px;height:7px;border-radius:50%;background:var(--sky);box-shadow:0 0 8px rgba(0,212,255,.6)}
+  .doc strong{color:#eaf2fa}
+  .callout{background:linear-gradient(135deg,rgba(0,212,255,.08),rgba(255,179,0,.05));border:1px solid rgba(0,212,255,.22);border-radius:16px;padding:24px 26px;margin:24px 0}
+  .callout h2{margin-top:0}
+  .callout li::before{background:var(--amber);box-shadow:0 0 8px rgba(255,179,0,.6)}
+  .nocollect li::before{content:"✕";background:transparent;box-shadow:none;color:var(--amber);font-weight:800;font-size:13px;top:2px;left:2px}
+  table{width:100%;border-collapse:collapse;margin:18px 0;font-size:15px}
+  th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:#fff;font-weight:700;background:rgba(255,255,255,.03)}
+  td{color:var(--muted)}
+  .contact-box{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:16px;padding:24px;margin-top:18px}
+  footer{border-top:1px solid var(--line);background:rgba(8,18,30,.6);padding:44px 0 36px;margin-top:70px}
+  .foot{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;max-width:1140px;margin:0 auto;padding:0 24px}
+  .foot-links{display:flex;gap:26px;flex-wrap:wrap}
+  .foot-links a{color:var(--muted-2);font-size:14.5px}
+  .foot-links a:hover{color:var(--sky)}
+  .copy{max-width:1140px;margin:30px auto 0;padding:22px 24px 0;border-top:1px solid var(--line);color:var(--muted-2);font-size:13px}
+  @media(max-width:680px){.nav-links{display:none}}
+</style>
+</head>
+<body>
+<div class="aurora"></div>
+<header>
+  <div class="nav">
+    <a class="brand" href="index.html"><span class="logo"><svg viewBox="0 0 24 24" fill="none"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2 1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5L21 16Z" fill="#04222e"/></svg></span>SKYGATE</a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </nav>
+  </div>
+</header>
+
+<main class="doc">
+  <div class="wrap">
+    <span class="badge">Privacy Policy</span>
+    <h1>Your data stays<br>yours.</h1>
+    <p class="updated">Last updated: <strong>June 15, 2026</strong></p>
+    <p class="intro">SKYGATE ("the app", "we") is built privacy-first. There is no account, no advertising, and no analytics or tracking SDKs. This policy explains exactly what data the app uses, the limited third parties it talks to, and the data it never collects.</p>
+
+    <h2>1. Who we are</h2>
+    <p>SKYGATE is an iOS flight-tracking app for iPhone and iPad, published by <strong>Hugo Moriceau</strong> (bundle identifier <strong>com.skygate.flighttracker</strong>). You can reach us at <a href="mailto:hugomoriceau@gmail.com">hugomoriceau@gmail.com</a> for any privacy question.</p>
+
+    <h2>2. No account, no profile</h2>
+    <p>SKYGATE works the moment you open it. <strong>You do not create an account, and we do not ask for your name, email, phone number, or any personal identifier to use the app.</strong> Your tracked flights, settings, and saved boarding passes are stored on your device (and, if you use SkyGroup, see section 6).</p>
+
+    <h2>3. Information the app processes</h2>
+    <p>To do its job, SKYGATE handles a small amount of information — most of it never leaves your device. The following table summarizes what is processed and where it goes.</p>
+    <table>
+      <thead><tr><th>Data</th><th>Why</th><th>Where it goes</th></tr></thead>
+      <tbody>
+        <tr><td>Flight number / route you choose to track</td><td>To retrieve schedule, gate, delay and status</td><td>Sent to AviationEdge (flight-data API)</td></tr>
+        <tr><td>Flight identifier for the live map</td><td>To show the aircraft's live position</td><td>Sent to the adsb.lol community ADS-B network (keyless)</td></tr>
+        <tr><td>Airport / route coordinates</td><td>To show weather affecting your flight</td><td>Sent to Open-Meteo (weather API)</td></tr>
+        <tr><td>Approximate location (if you allow it)</td><td>To estimate your time-to-gate</td><td>Stays on your device only</td></tr>
+        <tr><td>Boarding-pass photo / camera frame</td><td>To read flight details (OCR)</td><td>Stays on your device only</td></tr>
+        <tr><td>Flight metadata for AI Rescue (optional)</td><td>To draft a compensation email</td><td>Sent to Anthropic only if you enable it with your own key</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Flight data (AviationEdge)</h3>
+    <p>When you track a flight, SKYGATE sends the <strong>flight number you entered</strong> to <strong>AviationEdge</strong>, a third-party flight-data provider, to retrieve schedule, gate, status, delays and cancellations. AviationEdge processes this request to return that data. No personal identifier about you is attached to the request.</p>
+
+    <h3>Live map position (adsb.lol)</h3>
+    <p>For the live aircraft position on the map, SKYGATE queries the <strong>keyless community ADS-B network at adsb.lol</strong>. These are public flight-position queries; no account or key is involved and nothing identifying you is sent.</p>
+
+    <h3>Weather (Open-Meteo)</h3>
+    <p>To show weather that may affect your flight and to feed on-device delay prediction, SKYGATE requests forecasts from <strong>Open-Meteo</strong> using airport/route coordinates. No personal information is sent.</p>
+
+    <h3>Location</h3>
+    <p>If you grant location permission, SKYGATE uses your approximate location <strong>only on your device</strong> to estimate how long it will take you to reach the gate. <strong>Your location is never sold, never used for advertising, and is not used to track you across apps or websites.</strong> You can deny or revoke this permission at any time in iOS Settings, and the rest of the app keeps working.</p>
+
+    <h3>Boarding-pass scanning (camera &amp; photos)</h3>
+    <p>When you scan a boarding pass, the image is processed <strong>entirely on your device</strong> using Apple's Vision framework (OCR) to extract the flight details. <strong>Boarding-pass images are not uploaded to us or anyone else.</strong></p>
+
+    <h3>On-device delay prediction</h3>
+    <p>Delay prediction is computed <strong>locally on your device</strong>, combining schedule information with the weather data described above. The prediction model and your inputs are not sent to any server for this feature.</p>
+
+    <h3>AI Rescue (optional)</h3>
+    <p>AI Rescue helps you estimate possible EU261 / UK261 / US DOT compensation and draft a complaint email. If you <strong>choose to enable AI drafting with your own API key</strong>, the relevant <strong>flight metadata</strong> (such as flight number, date, and disruption type) may be sent to <strong>Anthropic</strong> to generate the email text. If you do not enable it, SKYGATE uses a <strong>local template instead</strong> and nothing is sent. The compensation estimate itself is informational only and not legal advice.</p>
+
+    <h2>4. Data the app does NOT collect</h2>
+    <div class="callout">
+      <ul class="nocollect">
+        <li>No account, no name, no email address, no phone number is required or collected by us.</li>
+        <li>No advertising identifiers (IDFA) and <strong>no third-party advertising SDKs</strong>.</li>
+        <li>No analytics, behavioral tracking, or usage profiling.</li>
+        <li>No selling or sharing of your data with data brokers — ever.</li>
+        <li>No cross-app or cross-site tracking of your location.</li>
+        <li>No upload of your boarding-pass photos or camera images.</li>
+        <li>No access to your contacts, microphone, or browsing history.</li>
+        <li>No payment or card details — purchases are handled entirely by Apple (see section 7).</li>
+      </ul>
+    </div>
+
+    <h2>5. Third-party services</h2>
+    <p>SKYGATE communicates with a small, fixed set of services strictly to deliver flight features. Each operates under its own privacy policy:</p>
+    <ul>
+      <li><strong>AviationEdge</strong> — flight schedule, gate and status data.</li>
+      <li><strong>adsb.lol</strong> — keyless community ADS-B live aircraft positions.</li>
+      <li><strong>Open-Meteo</strong> — weather forecasts.</li>
+      <li><strong>Anthropic</strong> — only if you enable AI Rescue drafting with your own key.</li>
+      <li><strong>Apple</strong> — App Store, StoreKit purchases, and (optionally) iCloud/CloudKit for SkyGroup.</li>
+    </ul>
+    <p>We do not control these providers and encourage you to review their respective policies.</p>
+
+    <h2>6. SkyGroup shared boards</h2>
+    <p>SkyGroup lets you share a flight board with others. When you use it, the flights you choose to share and the board you create are synced through <strong>Apple's CloudKit</strong> so participants can view the same board. Only the flight information you add to a board is shared with the people you invite. SkyGroup is optional; if you never create or join a board, no data is shared this way.</p>
+
+    <h2>7. Purchases</h2>
+    <p>SKYGATE offers an optional Premium subscription. <strong>All payments are processed by Apple through StoreKit; SKYGATE never sees or stores your payment-card details.</strong> Subscription management and billing are handled by your Apple ID. See our <a href="terms.html">Terms of Use</a> for renewal details.</p>
+
+    <h2>8. Children's privacy</h2>
+    <p>SKYGATE is not directed at children under 13 and does not knowingly collect personal information from them. Because the app does not collect personal data or require an account, no such data is gathered in normal use.</p>
+
+    <h2>9. Data security &amp; retention</h2>
+    <p>Your tracked flights, settings, and scanned boarding passes are stored locally on your device and protected by iOS's standard data protection. Requests to third-party APIs are made over encrypted (HTTPS) connections. Because there is no account and we operate no user database, we have no personal profile of you to retain or delete on our servers. To remove all app data, simply delete the app from your device.</p>
+
+    <h2>10. Your rights</h2>
+    <p>Depending on where you live (for example under the GDPR or CCPA), you may have rights to access, correct, or delete personal data held about you. Since SKYGATE does not maintain accounts or personal profiles on our servers, the practical way to exercise these rights is to manage permissions in iOS Settings and to delete the app, which removes locally stored data. For any request or question, contact us using the details below.</p>
+
+    <h2>11. Changes to this policy</h2>
+    <p>We may update this Privacy Policy as the app evolves. Material changes will be reflected here with a new "Last updated" date. Continued use of SKYGATE after an update means you accept the revised policy.</p>
+
+    <h2>12. Contact</h2>
+    <div class="contact-box">
+      <p style="margin-bottom:6px;color:#fff;font-weight:700">Questions about your privacy?</p>
+      <p style="margin-bottom:0">Email <a href="mailto:hugomoriceau@gmail.com">hugomoriceau@gmail.com</a> and we'll get back to you, typically within 2–3 business days.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="foot">
+    <a class="brand" href="index.html"><span class="logo"><svg viewBox="0 0 24 24" fill="none"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2 1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5L21 16Z" fill="#04222e"/></svg></span>SKYGATE</a>
+    <div class="foot-links">
+      <a href="index.html">Home</a>
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="mailto:hugomoriceau@gmail.com">Contact</a>
+    </div>
+  </div>
+  <div class="copy">© 2026 SKYGATE · Hugo Moriceau. All rights reserved.</div>
+</footer>
+</body>
+</html>

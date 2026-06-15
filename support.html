@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Support — SKYGATE Flight Tracker</title>
+<meta name="description" content="SKYGATE support: contact us, read the FAQ on how tracking works, why a flight may not be found, how AI Rescue works, and how to cancel your subscription." />
+<meta name="theme-color" content="#0D1B2A" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+  :root{--midnight:#0D1B2A;--sky:#00D4FF;--amber:#FFB300;--white:#fff;--muted:#9fb3c8;--muted-2:#6f8298;--line:rgba(255,255,255,.08);--maxw:820px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--midnight);color:var(--white);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:var(--sky);text-decoration:none}a:hover{text-decoration:underline}
+  .aurora{position:fixed;inset:0;z-index:-2;background:radial-gradient(1000px 600px at 80% -10%,rgba(0,212,255,.12),transparent 60%),radial-gradient(800px 500px at 5% 0%,rgba(255,179,0,.08),transparent 55%),linear-gradient(180deg,#0D1B2A,#0a1420)}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  header{position:sticky;top:0;z-index:50;backdrop-filter:saturate(150%) blur(14px);background:rgba(13,27,42,.72);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px;max-width:1140px;margin:0 auto;padding:0 24px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:.04em;font-size:18px;color:#fff}
+  .logo{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,var(--sky),#0096c7);box-shadow:0 6px 20px -6px rgba(0,212,255,.7)}
+  .logo svg{width:20px;height:20px}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links a{color:var(--muted);font-weight:500;font-size:15px}
+  .nav-links a:hover{color:#fff;text-decoration:none}
+  .doc{padding:64px 0 40px}
+  .badge{display:inline-flex;align-items:center;gap:8px;padding:7px 16px;border-radius:999px;border:1px solid var(--line);background:rgba(0,212,255,.06);color:var(--sky);font-size:13px;font-weight:600;margin-bottom:22px}
+  h1{font-size:clamp(34px,6vw,52px);font-weight:900;letter-spacing:-.02em;line-height:1.08}
+  .intro{color:var(--muted);font-size:17px;margin-top:22px;max-width:620px}
+  .contact-cards{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:34px 0 10px}
+  .ccard{background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));border:1px solid var(--line);border-radius:18px;padding:26px}
+  .ccard .ico{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;margin-bottom:14px;background:linear-gradient(135deg,rgba(0,212,255,.18),rgba(0,212,255,.04));border:1px solid rgba(0,212,255,.25)}
+  .ccard .ico svg{width:23px;height:23px;color:var(--sky)}
+  .ccard.amber .ico{background:linear-gradient(135deg,rgba(255,179,0,.2),rgba(255,179,0,.05));border-color:rgba(255,179,0,.3)}
+  .ccard.amber .ico svg{color:var(--amber)}
+  .ccard h3{font-size:18px;font-weight:800;margin-bottom:6px}
+  .ccard p{color:var(--muted);font-size:15px;margin-bottom:8px}
+  .ccard a{font-weight:700;font-size:16px}
+  .doc h2{font-size:26px;font-weight:900;margin:52px 0 6px;letter-spacing:-.01em}
+  .sub{color:var(--muted);font-size:16px;margin-bottom:14px}
+  details{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden;transition:border-color .2s}
+  details[open]{border-color:rgba(0,212,255,.35)}
+  summary{cursor:pointer;list-style:none;padding:18px 22px;font-weight:700;font-size:16.5px;display:flex;justify-content:space-between;align-items:center;gap:14px}
+  summary::-webkit-details-marker{display:none}
+  summary .plus{flex:none;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:rgba(0,212,255,.12);border:1px solid rgba(0,212,255,.3);color:var(--sky);font-weight:800;transition:transform .2s}
+  details[open] summary .plus{transform:rotate(45deg)}
+  .answer{padding:0 22px 20px;color:var(--muted);font-size:15.5px}
+  .answer p{margin-bottom:12px}
+  .answer ol{margin:0 0 8px 20px;color:var(--muted)}
+  .answer li{margin-bottom:8px}
+  .answer strong{color:#eaf2fa}
+  .note{background:linear-gradient(135deg,rgba(0,212,255,.08),rgba(255,179,0,.05));border:1px solid rgba(0,212,255,.22);border-radius:16px;padding:22px 26px;margin-top:30px;color:var(--muted)}
+  .note strong{color:#fff}
+  footer{border-top:1px solid var(--line);background:rgba(8,18,30,.6);padding:44px 0 36px;margin-top:70px}
+  .foot{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;max-width:1140px;margin:0 auto;padding:0 24px}
+  .foot-links{display:flex;gap:26px;flex-wrap:wrap}
+  .foot-links a{color:var(--muted-2);font-size:14.5px}
+  .foot-links a:hover{color:var(--sky)}
+  .copy{max-width:1140px;margin:30px auto 0;padding:22px 24px 0;border-top:1px solid var(--line);color:var(--muted-2);font-size:13px}
+  @media(max-width:680px){.nav-links{display:none}.contact-cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="aurora"></div>
+<header>
+  <div class="nav">
+    <a class="brand" href="index.html"><span class="logo"><svg viewBox="0 0 24 24" fill="none"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2 1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5L21 16Z" fill="#04222e"/></svg></span>SKYGATE</a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </nav>
+  </div>
+</header>
+
+<main class="doc">
+  <div class="wrap">
+    <span class="badge">Support</span>
+    <h1>We're here to help.</h1>
+    <p class="intro">Have a question or hit a snag? Reach out directly — there's a real person on the other end. Most answers are in the FAQ below.</p>
+
+    <div class="contact-cards">
+      <div class="ccard">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Email us</h3>
+        <p>The fastest way to reach support for any question, bug, or refund request.</p>
+        <a href="mailto:hugomoriceau@gmail.com">hugomoriceau@gmail.com</a>
+      </div>
+      <div class="ccard amber">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2" stroke-linecap="round"/></svg></div>
+        <h3>Response time</h3>
+        <p>We aim to reply to every message within <strong>2–3 business days</strong>. Please include your device model and iOS version.</p>
+      </div>
+    </div>
+
+    <h2>Frequently asked questions</h2>
+    <p class="sub">Quick answers to the things travelers ask most.</p>
+
+    <details>
+      <summary>How does flight tracking work? <span class="plus">+</span></summary>
+      <div class="answer">
+        <p>Enter a <strong>flight number</strong> (for example <em>LX318</em>) or scan your boarding pass, and SKYGATE looks up the flight's schedule, gate, and status. Status updates — gate changes, delays, and cancellations — are refreshed automatically, and the live map shows the aircraft's current position when it's airborne.</p>
+        <p>You can pin a flight to your <strong>Lock Screen and Dynamic Island</strong> with Live Activities so the countdown and gate stay visible without opening the app. No account is needed; tracking works from first launch.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Why isn't my flight found? <span class="plus">+</span></summary>
+      <div class="answer">
+        <p>A flight may not appear for a few reasons:</p>
+        <ol>
+          <li>The <strong>flight number was mistyped</strong> — double-check the airline code and number (e.g. <em>BA</em> + <em>456</em>).</li>
+          <li>The flight is <strong>too far in the future or already in the past</strong> — schedule data is most reliable around the day of travel.</li>
+          <li>The flight is operated under a <strong>different (codeshare) number</strong> — try the operating carrier's number shown on your boarding pass.</li>
+          <li>The flight-data provider <strong>hasn't published the schedule yet</strong>, or the route is a charter/regional flight with limited coverage.</li>
+        </ol>
+        <p>If a flight you're sure about still won't load, email us the flight number and date and we'll investigate.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How does AI Rescue work? <span class="plus">+</span></summary>
+      <div class="answer">
+        <p>If your flight is delayed, cancelled, or you're denied boarding, <strong>AI Rescue</strong> estimates the compensation you may be entitled to under <strong>EU261, UK261, and US DOT</strong> rules based on the disruption details, then helps you draft a complaint email to the airline.</p>
+        <p>You have two options for drafting: bring your <strong>own AI key</strong> for a tailored letter (in which case the flight metadata is sent to the AI provider to generate the text), or use the built-in <strong>local template</strong> so nothing leaves your device. Either way, the compensation figure is an <strong>informational estimate, not legal advice</strong> — the airline makes the final determination.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I cancel my subscription? <span class="plus">+</span></summary>
+      <div class="answer">
+        <p>SKYGATE Premium is billed through your Apple ID, so you manage or cancel it in iOS Settings — not inside the app:</p>
+        <ol>
+          <li>Open the <strong>Settings</strong> app on your iPhone or iPad.</li>
+          <li>Tap your <strong>name</strong> at the top, then <strong>Subscriptions</strong>.</li>
+          <li>Select <strong>SKYGATE</strong>.</li>
+          <li>Tap <strong>Cancel Subscription</strong> (or change your plan).</li>
+        </ol>
+        <p>To avoid being charged for the next period — including after the <strong>3-day free trial</strong> — cancel at least <strong>24 hours before</strong> the trial or current period ends. You'll keep Premium access until the end of the period you've already paid for. Refund requests are handled by Apple at <a href="https://reportaproblem.apple.com" target="_blank" rel="noopener">reportaproblem.apple.com</a>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Is my data private? <span class="plus">+</span></summary>
+      <div class="answer">
+        <p>Yes. SKYGATE requires <strong>no account</strong>, contains <strong>no ads or tracking SDKs</strong>, and processes boarding-pass scanning and delay prediction <strong>on your device</strong>. Your location, if enabled, is used only locally to estimate your time to the gate. Full details are in our <a href="privacy.html">Privacy Policy</a>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What do I get for free vs. Premium? <span class="plus">+</span></summary>
+      <div class="answer">
+        <p>The <strong>free</strong> tier lets you track up to <strong>3 flights</strong> with real-time gate and status, live map, and Lock Screen widgets. <strong>Premium</strong> ($2.99/mo or $19.99/yr, with a 3-day free trial) unlocks <strong>unlimited</strong> flight tracking plus Live Activities, AI Rescue, on-device delay prediction, and SkyGroup shared boards.</p>
+      </div>
+    </details>
+
+    <div class="note">
+      <p style="margin:0"><strong>Still stuck?</strong> Email <a href="mailto:hugomoriceau@gmail.com">hugomoriceau@gmail.com</a> with your device model, iOS version, and a short description (a screenshot helps), and we'll get you sorted as quickly as we can.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="foot">
+    <a class="brand" href="index.html"><span class="logo"><svg viewBox="0 0 24 24" fill="none"><path d="M21 16v-2l-8-5V3.5A1.5 1.5 0 0 0 11.5 2 1.5 1.5 0 0 0 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5L21 16Z" fill="#04222e"/></svg></span>SKYGATE</a>
+    <div class="foot-links">
+      <a href="index.html">Home</a>
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="mailto:hugomoriceau@gmail.com">Contact</a>
+    </div>
+  </div>
+  <div class="copy">© 2026 SKYGATE · Hugo Moriceau. All rights reserved.</div>
+</footer>
+</body>
+</html>
